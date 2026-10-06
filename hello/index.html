@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#fde6c8;
+    --sky-bottom:#f7b98b;
+    --sun:#fff3d6;
+    --hill-far:#e79a6d;
+    --hill-near:#c9714b;
+    --ground:#8f4a32;
+    --dino:#3f7d5c;
+    --dino-belly:#a9d4a0;
+    --dino-spikes:#e8a33d;
+    --text:#3a1f14;
+    --text-dim:#7a4a35;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --sky-top:#141a33;
+      --sky-bottom:#3b2a52;
+      --sun:#f4ecd0;
+      --hill-far:#2a2245;
+      --hill-near:#1d1834;
+      --ground:#120f22;
+      --dino:#5fb08a;
+      --dino-belly:#bfe6b4;
+      --dino-spikes:#f0b24f;
+      --text:#f6efe2;
+      --text-dim:#c9bcd8;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    min-height:100vh;
+    background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-bottom) 100%);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow-x:hidden;
+    padding:24px 16px;
+    position:relative;
+  }
+  .sun{
+    position:absolute;
+    top:8vh; right:12vw;
+    width:min(22vw,140px); aspect-ratio:1;
+    border-radius:50%;
+    background:var(--sun);
+    box-shadow:0 0 80px 20px color-mix(in srgb,var(--sun) 45%,transparent);
+    opacity:.9;
+  }
+  .landscape{
+    position:absolute; left:0; right:0; bottom:0;
+    width:100%; height:38vh;
+    pointer-events:none;
+  }
+  .landscape .far{fill:var(--hill-far)}
+  .landscape .near{fill:var(--hill-near)}
+  .landscape .ground{fill:var(--ground)}
+
+  main{
+    position:relative; z-index:1;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center;
+    gap:12px;
+    margin-bottom:10vh;
+  }
+  h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:800;
+    font-size:clamp(3rem,12vw,7.5rem);
+    line-height:.95;
+    letter-spacing:-.02em;
+    animation:rise .9s cubic-bezier(.2,.8,.2,1) both;
+  }
+  p.sub{
+    font-size:clamp(1rem,2.6vw,1.2rem);
+    color:var(--text-dim);
+    animation:rise .9s .15s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .dino{
+    width:min(78vw,380px);
+    height:auto;
+    margin-top:8px;
+    animation:rise .9s .3s cubic-bezier(.2,.8,.2,1) both;
+    filter:drop-shadow(0 18px 18px rgba(0,0,0,.18));
+  }
+  .dino .body{fill:var(--dino)}
+  .dino .belly{fill:var(--dino-belly)}
+  .dino .spikes{fill:var(--dino-spikes)}
+  .dino .eye-white{fill:#fff}
+  .dino .eye{fill:#1b1b1b}
+  .dino .cheek{fill:#f28c8c;opacity:.55}
+  .dino .bob{animation:bob 2.6s ease-in-out infinite; transform-origin:50% 100%}
+  .dino .tail{animation:wag 2.6s ease-in-out infinite; transform-origin:120px 200px}
+  .dino .lid{animation:blink 5s infinite; transform-origin:300px 80px}
+
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes wag{0%,100%{transform:rotate(0)}50%{transform:rotate(-5deg)}}
+  @keyframes blink{0%,94%,100%{transform:scaleY(0)}96%{transform:scaleY(1)}}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important}
+  }
+</style>
+</head>
+<body>
+  <div class="sun" aria-hidden="true"></div>
+
+  <svg class="landscape" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+    <path class="far" d="M0 210 C 180 130 320 170 480 150 S 820 90 1000 140 S 1300 120 1440 160 V400 H0Z"/>
+    <path class="near" d="M0 280 C 220 220 420 260 640 240 S 1060 200 1240 240 S 1380 250 1440 240 V400 H0Z"/>
+    <path class="ground" d="M0 330 C 300 310 600 320 900 315 S 1300 320 1440 315 V400 H0Z"/>
+  </svg>
+
+  <main>
+    <h1>Hello World</h1>
+    <p class="sub">Greetings from 66 million years ago.</p>
+
+    <svg class="dino" viewBox="0 0 400 300" role="img" aria-label="A friendly cartoon dinosaur waving hello">
+      <g class="bob">
+        <!-- tail -->
+        <path class="body tail" d="M140 200 C 90 205 50 190 18 160 C 50 215 100 240 160 235 Z"/>
+        <!-- back spikes -->
+        <g class="spikes">
+          <path d="M150 140 l14 -26 l10 28 z"/>
+          <path d="M178 124 l16 -28 l10 30 z"/>
+          <path d="M208 116 l16 -28 l10 30 z"/>
+          <path d="M236 108 l14 -24 l8 26 z"/>
+          <path d="M112 176 l8 -20 l12 18 z"/>
+        </g>
+        <!-- back leg -->
+        <path class="body" d="M160 215 C 150 250 150 268 158 282 H 192 C 196 268 196 248 192 222 Z"/>
+        <!-- body -->
+        <path class="body" d="M120 200 C 120 140 180 110 240 115 C 270 118 290 140 292 170 C 296 225 250 248 190 245 C 150 243 120 230 120 200 Z"/>
+        <!-- belly -->
+        <path class="belly" d="M190 160 C 230 155 270 175 268 205 C 264 232 230 242 200 238 C 175 234 168 212 172 190 C 175 172 180 162 190 160 Z"/>
+        <!-- front leg -->
+        <path class="body" d="M228 222 C 224 252 224 268 230 282 H 264 C 268 266 266 248 260 222 Z"/>
+        <!-- neck + head -->
+        <path class="body" d="M238 130 C 236 100 240 70 262 58 C 290 44 340 48 352 74 C 362 96 350 116 322 120 C 300 123 290 130 288 150 Z"/>
+        <!-- waving arm -->
+        <path class="body" d="M262 170 C 282 160 296 146 304 128 C 308 120 320 122 318 132 C 312 154 294 176 270 186 Z"/>
+        <!-- face -->
+        <circle class="eye-white" cx="300" cy="80" r="11"/>
+        <circle class="eye" cx="303" cy="81" r="5.5"/>
+        <rect class="body lid" x="288" y="68" width="24" height="24" rx="12"/>
+        <circle class="cheek" cx="322" cy="100" r="7"/>
+        <path d="M326 108 C 334 112 342 110 348 104" fill="none" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+        <circle class="eye" cx="344" cy="76" r="2"/>
+      </g>
+    </svg>
+  </main>
+</body>
+</html>
